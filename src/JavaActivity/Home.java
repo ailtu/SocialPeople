@@ -1,6 +1,5 @@
 package JavaActivity;
 
-import java.nio.file.NotLinkException;
 import java.util.Scanner;
 
 public class Home {

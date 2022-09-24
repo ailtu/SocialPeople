@@ -11,12 +11,15 @@ public class Layouts {
         int optionChoosed = 0;
 
         // layout da páina com esse caractere
-        System.out.println("    ▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰   ▰  ▰▰▰▰▰  ▰         ▰▰▰▰▰  ▰▰▰▰▰  ▰▰▰▰▰  ▰▰▰▰▰ ▰      ▰▰▰▰▰");
-        System.out.println("   ▰        ▰     ▰ ▰         ▰  ▰     ▰  ▰         ▰      ▰  ▰         ▰     ▰  ▰     ▰ ▰      ▰        ");
-        System.out.println("  ▰▰▰▰▰ ▰     ▰ ▰         ▰  ▰▰▰▰▰  ▰         ▰ ▰ ▰    ▰▰▰      ▰     ▰  ▰ ▰ ▰  ▰      ▰▰▰     ");
-        System.out.println("        ▰ ▰     ▰ ▰         ▰  ▰      ▰  ▰         ▰         ▰          ▰     ▰  ▰       ▰      ▰          ");
-        System.out.println("▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰▰  ▰  ▰      ▰  ▰▰▰▰    ▰         ▰▰▰▰▰   ▰▰▰▰▰  ▰      ▰▰▰▰ ▰▰▰▰▰    ");
+        System.out.println("    ▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰   ▰  ▰▰▰▰▰  ▰         ▰▰▰▰▰  ▰▰▰▰▰  ▰▰▰▰▰  ▰▰▰▰▰  ▰      ▰▰▰▰▰ ");
+        System.out.println("   ▰        ▰     ▰ ▰         ▰  ▰     ▰  ▰         ▰      ▰  ▰         ▰     ▰  ▰     ▰  ▰      ▰         ");
+        System.out.println("  ▰▰▰▰▰ ▰     ▰ ▰         ▰  ▰▰▰▰▰  ▰         ▰ ▰ ▰    ▰▰▰      ▰     ▰  ▰ ▰ ▰   ▰      ▰▰▰      ");
+        System.out.println("        ▰ ▰     ▰ ▰         ▰  ▰      ▰  ▰         ▰         ▰          ▰     ▰  ▰        ▰      ▰           ");
+        System.out.println("▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰▰  ▰  ▰      ▰  ▰▰▰▰    ▰         ▰▰▰▰▰   ▰▰▰▰▰  ▰       ▰▰▰▰ ▰▰▰▰▰    ");
+        System.out.println(teste);
  
+
+
     // entrada de dados e limpeza do buffer
     optionChoosed = in.nextInt(); in.nextLine();
 
