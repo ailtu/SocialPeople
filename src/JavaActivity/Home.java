@@ -1,10 +1,13 @@
 package JavaActivity;
 
 import java.util.Scanner;
+import JavaLayouts.Layouts;
 
 public class Home {
 
     private User[] userAccounts;
+    public User currentUser;
+    public Layouts showView;
 
     // simula id da posição do vetor, onde estão armazenados os dados
     private int idAccountInfo;
@@ -18,14 +21,12 @@ public class Home {
     public void createNewAccount(String login, String password) {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Digite seu login: ");
+        System.out.println("Crie um Login: ");
         login = in.nextLine();
 
-        /*
-         * while (/* verifica se a conta ja existe ou não foi preenchida ) {
-         * 
-         * }
-         */
+          while (this.checkLoginAlreadyExist(login) == true) {
+         }
+         
 
         in.close();
     }
@@ -49,25 +50,30 @@ public class Home {
         return null; // se não, retorne nula
     }
 
-    // checa contas existentes ou campos não preenchidos
-    public boolean checkAccounts(String login, String password) {
+    // checa se o campo foi preenchido
+    public boolean checkLoginIsSuitable(String login) {
 
-        boolean notSuitableAlert = true;
+        boolean suitableAlert = false; 
 
         for (int i = 0; i < idAccountInfo; i++) {
-            if (login.equals("") || login.equals(userAccounts[i].getLogin())) {
-                
-                notSuitableAlert = true; // valor não adequado identificado
+            if (login.equals("")) {         
+                suitableAlert = false; // valor não adequado identificado
                 break;
-            } else if(password.equals("")) {
-                notSuitableAlert = true;
-            
             }
         }
+        return true;
+    }
 
-        // falta verificar senha
+    // checa se o login já existe
+    public boolean checkLoginAlreadyExist(String login) {
 
-        return false;
+        for (int i = 0; i <= idAccountInfo; i++) {
+            if(login.equals(userAccounts[i].getLogin())) {
+                return
+
+            }
+
+        }
     }
 
     public void userLogin() {
