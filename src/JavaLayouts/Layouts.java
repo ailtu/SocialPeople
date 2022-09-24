@@ -16,15 +16,14 @@ public class Layouts {
         System.out.println("  ▰▰▰▰▰ ▰     ▰ ▰         ▰  ▰▰▰▰▰  ▰         ▰ ▰ ▰    ▰▰▰      ▰     ▰  ▰ ▰ ▰   ▰      ▰▰▰      ");
         System.out.println("        ▰ ▰     ▰ ▰         ▰  ▰      ▰  ▰         ▰         ▰          ▰     ▰  ▰        ▰      ▰           ");
         System.out.println("▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰▰  ▰  ▰      ▰  ▰▰▰▰    ▰         ▰▰▰▰▰   ▰▰▰▰▰  ▰       ▰▰▰▰ ▰▰▰▰▰    ");
-        System.out.println(teste);
- 
+        System.out.println("");
+        System.out.println(" |  1 - Cadastra-se  |  2 - Login  |  3 - Sair  | ");
 
+        optionChoosed = in.nextInt(); in.nextLine();
+        
 
-    // entrada de dados e limpeza do buffer
-    optionChoosed = in.nextInt(); in.nextLine();
-
-    in.close();
-
+        
+        in.close();
     }
 
 }
