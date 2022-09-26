@@ -18,6 +18,7 @@ public class Home {
         idAccountInfo = 0;
     }
 
+    // cria conta para um novo usuário
     public void createNewAccount(String login, String password) {
         Scanner in = new Scanner(System.in);
 
@@ -25,6 +26,7 @@ public class Home {
         login = in.nextLine();
 
           while (this.checkLoginAlreadyExist(login) == true) {
+
          }
          
 
@@ -61,7 +63,8 @@ public class Home {
                 break;
             }
         }
-        return true;
+        return suitableAlert = 
+        true;
     }
 
     // checa se o login já existe
@@ -69,8 +72,7 @@ public class Home {
 
         for (int i = 0; i <= idAccountInfo; i++) {
             if(login.equals(userAccounts[i].getLogin())) {
-                return
-
+               
             }
 
         }
