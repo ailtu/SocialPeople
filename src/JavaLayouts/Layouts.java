@@ -2,7 +2,7 @@ package JavaLayouts;
 
  import java.util.Scanner;
 
-import JavaActivity.Home;
+import JavaActivity.*;
 
 // classe para gráficos
 public class Layouts {

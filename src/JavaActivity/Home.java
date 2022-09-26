@@ -14,6 +14,7 @@ public class Home {
     private int idAccountInfo;
 
     public Home() {
+
         int indexSize = 100;
         userAccounts = new User[indexSize];
         idAccountInfo = 0;
@@ -23,6 +24,7 @@ public class Home {
     public void createNewAccount(String login, String password) {
         Scanner in = new Scanner(System.in);
 
+        // criação de login
         System.out.println("Crie um Login: ");
         login = in.nextLine();
 
@@ -36,17 +38,24 @@ public class Home {
             login = in.nextLine();
         }
 
+        // criação de senha com exceptions
         System.out.println("Crie uma senha: ");
+        password = in.nextLine();
 
-        in.close();
-    }
+        while(password.equals("")) {
+            throw new IllegalArgumentException("Senha não pode ser vazia! Tente novamente: ");
+        } password = in.nextLine();
 
-    public User addIdForAccount(String login, String password) {
+        String confirmPassCheck;
 
-        User newAccount = new User(login, password);
-        userAccounts[idAccountInfo] = newAccount;
-        idAccountInfo++;
-        return newAccount;
+         System.out.println("Confirme sua senha: ");
+         confirmPassCheck = in.nextLine();
+
+         while(confirmPassCheck != password) {
+            System.out.println("A senha está diferente! Tente novamente: ");
+            confirmPassCheck = in.nextLine();
+         }
+         in.close();
     }
 
     // método para auxiliar nas buscas de um usuário
