@@ -33,13 +33,12 @@ public class Layouts {
                 case 2: 
                 break;
 
-                case 3: System.out.println("Saindo...");
-                        Runtime.getRuntime().exit(0);
-                break;
-
                 default: System.out.println("Opção inválida, tente novamente: ");
             }
         }
+        
         in.close();
+        System.out.println("Saindo...");
+        Runtime.getRuntime().exit(0);
     }
 }
