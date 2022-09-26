@@ -12,15 +12,10 @@ public class Layouts {
 
         int optionChoosed = 0;
 
-        // layout da páina com esse caractere
-        System.out.println("    ▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰   ▰  ▰▰▰▰▰  ▰         ▰▰▰▰▰  ▰▰▰▰▰  ▰▰▰▰▰  ▰▰▰▰▰  ▰      ▰▰▰▰▰ ");
-        System.out.println("   ▰        ▰     ▰ ▰         ▰  ▰     ▰  ▰         ▰      ▰  ▰         ▰     ▰  ▰     ▰  ▰      ▰         ");
-        System.out.println("  ▰▰▰▰▰ ▰     ▰ ▰         ▰  ▰▰▰▰▰  ▰         ▰ ▰ ▰    ▰▰▰      ▰     ▰  ▰ ▰ ▰   ▰      ▰▰▰      ");
-        System.out.println("        ▰ ▰     ▰ ▰         ▰  ▰      ▰  ▰         ▰         ▰          ▰     ▰  ▰        ▰      ▰           ");
-        System.out.println("▰▰▰▰▰ ▰▰▰▰▰ ▰▰▰▰▰  ▰  ▰      ▰  ▰▰▰▰    ▰         ▰▰▰▰▰   ▰▰▰▰▰  ▰       ▰▰▰▰ ▰▰▰▰▰    ");
         System.out.println("");
-        
+        System.out.println(" |               > SOCIAL PEOPLE <              | ");   
         System.out.println(" |  1 - Cadastre-se  |  2 - Login  |  3 - Sair  | ");
+        System.out.print(" | ");
         optionChoosed = in.nextInt(); in.nextLine();
 
         while(optionChoosed != 3) {
@@ -36,7 +31,7 @@ public class Layouts {
                 default: System.out.println("Opção inválida, tente novamente: ");
             }
         }
-        
+
         in.close();
         System.out.println("Saindo...");
         Runtime.getRuntime().exit(0);
