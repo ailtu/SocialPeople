@@ -2,6 +2,8 @@ package JavaLayouts;
 
  import java.util.Scanner;
 
+import JavaActivity.Home;
+
 // classe para gráficos
 public class Layouts {
 
@@ -25,7 +27,7 @@ public class Layouts {
 
             switch(optionChoosed) {
 
-                case 1: 
+                case 1:
                 break;
 
                 case 2: 
@@ -40,5 +42,4 @@ public class Layouts {
         }
         in.close();
     }
-
 }

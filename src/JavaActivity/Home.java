@@ -1,6 +1,7 @@
 package JavaActivity;
 
 import java.util.Scanner;
+
 import JavaLayouts.Layouts;
 
 public class Home {
@@ -25,10 +26,17 @@ public class Home {
         System.out.println("Crie um Login: ");
         login = in.nextLine();
 
-          while (this.checkLoginAlreadyExist(login) == true) {
+        while (this.checkLoginAlreadyExist(login)) {
+            System.out.println("Erro: A conta já existe! Tente outro: ");
+            login = in.nextLine();
+        }
 
-         }
-         
+        while (this.checkLoginIsSuitable(login)) {
+            System.out.println("Campos vazios não são permitidos! Tente novamente: ");
+            login = in.nextLine();
+        }
+
+        System.out.println("Crie uma senha: ");
 
         in.close();
     }
@@ -55,30 +63,35 @@ public class Home {
     // checa se o campo foi preenchido
     public boolean checkLoginIsSuitable(String login) {
 
-        boolean suitableAlert = false; 
+        // predefinido como login adequado
+        boolean suitableAlert = true;
 
         for (int i = 0; i < idAccountInfo; i++) {
-            if (login.equals("")) {         
+            if (login.equals("")) {
                 suitableAlert = false; // valor não adequado identificado
                 break;
             }
         }
-        return suitableAlert = 
-        true;
+        return suitableAlert;
     }
 
     // checa se o login já existe
     public boolean checkLoginAlreadyExist(String login) {
 
+        // predefinido como não existente
+        boolean loginDoesNotExist = false;
+
         for (int i = 0; i <= idAccountInfo; i++) {
-            if(login.equals(userAccounts[i].getLogin())) {
-               
+            if (login.equals(userAccounts[i].getLogin())) {
+                return true; // login já existe
             }
-
         }
+        return loginDoesNotExist;
     }
 
-    public void userLogin() {
-
-    }
+    /*
+     * public void userLogin() {
+     * 
+     * }
+     */
 }
