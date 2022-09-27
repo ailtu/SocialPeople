@@ -2,19 +2,15 @@ package JavaActivity;
 
 import java.util.Scanner;
 
-import JavaLayouts.Layouts;
-
 public class Home {
 
     private User[] userAccounts;
     public User currentUser;
-    public Layouts showView;
 
     // simula id da posição do vetor, onde estão armazenados os dados
     private int idAccountInfo;
 
     public Home() {
-
         int indexSize = 100;
         userAccounts = new User[indexSize];
         idAccountInfo = 0;
@@ -69,7 +65,7 @@ public class Home {
         return null; // se não, retorne nula
     }
 
-    // checa se o campo foi preenchido
+    // checa se o campo  de login foi preenchido
     public boolean checkLoginIsSuitable(String login) {
 
         // predefinido como login adequado
