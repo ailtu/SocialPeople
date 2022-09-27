@@ -1,18 +1,26 @@
-## Getting Started
+# Universidade Católica de Pernambuco | Ciência da Computação
+ - Autor: Ailton Cesar
+ - Professor: Rafael Roque
+ - Disciplina: Programação 3
+ - Grupo: SocialPeople (Solo)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+# O que é este repositório?
 
-## Folder Structure
+Projeto de P3 que visa a construção de uma rede social em java.
 
-The workspace contains two folders by default, where:
+O código fonte se encontra no endereço:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- SocialPeople/src/JavaActivity/ Para códigos de lógica
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- SocialPeople/src/JavaLayouts/ Para códigos "gáficos"
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+# Ferramentas utilizadas:
 
-## Dependency Management
+<div align="left">
+<img height="35" widht="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"/>
+<img height="35" widht="35" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"/>
+</div>
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+# Status do desenvolvimento:
+
+Em construção ⏳
