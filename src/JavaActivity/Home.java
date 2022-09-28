@@ -34,7 +34,7 @@ public class Home {
             login = in.nextLine();
         }
 
-        // criação de senha com exceptions
+        // criação de senha e tratamento de erros com exceptions
         System.out.println("Crie uma senha: ");
         password = in.nextLine();
 
@@ -51,6 +51,7 @@ public class Home {
             System.out.println("A senha está diferente! Tente novamente: ");
             confirmPassCheck = in.nextLine();
          }
+         
          in.close();
     }
 
