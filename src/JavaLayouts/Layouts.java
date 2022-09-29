@@ -7,7 +7,7 @@ import JavaActivity.*;
 // classe para gráficos
 public class Layouts {
 
-    public void mainTitle(String login, String password) {
+    public void mainTitle() {
         Scanner in = new Scanner(System.in);
 
         Home verHome = new Home();
@@ -23,7 +23,7 @@ public class Layouts {
 
             switch(optionChoosed) {
 
-                case 1: verHome.createNewAccount(login, password);
+                case 1: verHome.createNewAccount();
                 break;
 
                 case 2: 

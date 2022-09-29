@@ -2,8 +2,9 @@ package JavaActivity;
 
 import java.util.Scanner;
 
-public class Home {
+public class Home extends User {
 
+    private String confirmPassCheck;
     private User[] userAccounts;
     public User currentUser;
 
@@ -17,14 +18,17 @@ public class Home {
     }
 
     // cria conta para um novo usuário
-    public void createNewAccount(String login, String password) {
+    public void createNewAccount() {
         Scanner in = new Scanner(System.in);
+
+        String login;
+        String password;
 
         // criação de login
         System.out.println("Crie um Login: ");
         login = in.nextLine();
 
-        while (this.checkLoginAlreadyExist(login)) {
+        while (this.checkLoginAlreadyExist(login) == false) {
             System.out.println("Erro: A conta já existe! Tente outro: ");
             login = in.nextLine();
         }
@@ -34,25 +38,55 @@ public class Home {
             login = in.nextLine();
         }
 
-        // criação de senha e tratamento de erros com exceptions
+        // criação de senha
         System.out.println("Crie uma senha: ");
         password = in.nextLine();
 
-        while(password.equals("")) {
-            throw new IllegalArgumentException("Senha não pode ser vazia! Tente novamente: ");
-        } password = in.nextLine();
+        while (password.equals("")) {
+            System.out.println("Campos vazios não são permitidos! Tente novamente: ");
+            password = in.nextLine();
+        }
 
-        String confirmPassCheck;
+        System.out.println("Confirme sua senha: ");
+        confirmPassCheck = in.nextLine();
 
-         System.out.println("Confirme sua senha: ");
-         confirmPassCheck = in.nextLine();
-
-         while(confirmPassCheck != password) {
+        while (confirmPassCheck != password) {
             System.out.println("A senha está diferente! Tente novamente: ");
             confirmPassCheck = in.nextLine();
-         }
-         
-         in.close();
+        }
+
+        in.close();
+    }
+
+    // login para usuários já cadastrados
+    public void login() {
+        Scanner in = new Scanner(System.in);
+
+        String login;
+        String password;
+
+        System.out.println("Seu login: ");
+        login = in.nextLine();
+
+        while(!this.checkLoginAlreadyExist(login)) {
+            System.out.println("Esse login não existe, tente outro: ");
+            login = in.nextLine();
+        }
+
+        System.out.println("Sua Senha: ");
+        password = in.nextLine();
+
+        while(password.equals("")) {
+            System.out.println("Campos vazios não são permitidos! Tente novamente: ");
+            password = in.nextLine();
+        }
+
+        while(!this.checkPassIsSuitableOfLogin(login, password)) {
+            System.out.println("Senha incorreta! Tente novamente: ");
+            password = in.nextLine();
+        }
+
+        in.close();
     }
 
     // método para auxiliar nas buscas de um usuário
@@ -66,7 +100,7 @@ public class Home {
         return null; // se não, retorne nula
     }
 
-    // checa se o campo  de login foi preenchido
+    // checa se o campo de login foi preenchido
     public boolean checkLoginIsSuitable(String login) {
 
         // predefinido como login adequado
@@ -95,9 +129,13 @@ public class Home {
         return loginDoesNotExist;
     }
 
-    /*
-     * public void userLogin() {
-     * 
-     * }
-     */
+    // checa se a senha é a do login correto
+    public boolean checkPassIsSuitableOfLogin(String login, String password) {
+
+        User userForCheck = this.findUserById(login);
+        if(userForCheck != null) {
+            return password.equals(userForCheck.getPassword());
+        }
+        return false;
+    }
 }
