@@ -7,6 +7,6 @@ public class Main {
 
         /* EXECUTE AQUI! */
         Layouts triggrer = new Layouts();
-        triggrer.mainTitle();   
+        triggrer.viewMainTitle();   
     }
 }

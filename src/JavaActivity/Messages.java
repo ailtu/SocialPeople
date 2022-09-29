@@ -1,20 +1,30 @@
 package JavaActivity;
 
-public class Friends {
+public class Messages {
     
     private String forAnyone;
     private String fromCurrentUser;
-
-    public Friends(String forAnyone, String fromCurrentUser) {
-
+    private String currentMessage;
+    
+    public Messages(String forAnyone, String fromCurrentUser, String currentMessage) {
+        super();
         this.forAnyone = forAnyone;
         this.fromCurrentUser = fromCurrentUser;
+        this.currentMessage = currentMessage;
     }
 
-    public Friends() {
-        
+    public void setCurrentMessage(String currentMessage) {
+        this.currentMessage = currentMessage;
     }
-    
+
+    public String getCurrentMessage() {
+        return currentMessage;
+    }
+
+    public Messages(){
+
+    }
+
     public String getForAnyone() {
         return forAnyone;
     }
