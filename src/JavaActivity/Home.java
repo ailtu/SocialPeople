@@ -13,7 +13,8 @@ public class Home {
     private int idAccountInfo;
 
     public Home() {
-        int indexSize = 100;
+        
+        int indexSize = 10;
         userAccounts = new User[indexSize];
         idAccountInfo = 0;
     }
