@@ -7,10 +7,19 @@ import JavaActivity.*;
 // classe para gráficos
 public class Layouts {
 
+    private Home verHome;
+
+    public Layouts(Home vH) {
+        verHome = vH;
+    }
+
+    public Layouts() {
+        
+    }
+
     public void viewMainTitle() {
         Scanner in = new Scanner(System.in);
 
-        Home verHome = new Home();
         int optionChoosed = 0;
 
         System.out.println("|               > SOCIAL PEOPLE <              | ");   
@@ -22,11 +31,11 @@ public class Layouts {
             switch(optionChoosed) {
 
                 case 1: verHome.createNewAccount();
-                        viewMenuWhenUserLogged();
+                        this.viewMenuWhenUserLogged();
                 break;
 
                 case 2: verHome.login();
-                        viewMenuWhenUserLogged();
+                        this.viewMenuWhenUserLogged();
                 break;
 
                 default: System.out.println("Opção inválida, tente novamente: ");
@@ -43,19 +52,31 @@ public class Layouts {
        
         int optionChoosed = 0;
 
-        System.out.println("|  1 - Função1  |  2 - Função2  |  3 - Função3  | ");
+        System.out.println("|  1 - Editar Login/Senha  |  2 - Add/Seguir Amigos  |  3 - Enviar Mensagem  |  4 - Sair  |");
         optionChoosed = in.nextInt(); in.nextLine();
-        while(optionChoosed !=  2) {
+        while(optionChoosed != 4) {
+
+            Home showHomeMenus = new Home();
 
             switch(optionChoosed) {
 
-                case 1:
+                case 1: showHomeMenus.editProfile();
+                break;
+
+                case 2: showHomeMenus.followAndShowFriends();
+                break;
+
+                case 3: showHomeMenus.sendMessages();
                 break;
 
                 default: System.out.println("Opção inválida, tente novamente: ");
             }
-
+            this.viewMenuWhenUserLogged();
+            optionChoosed = in.nextInt(); in.nextLine();
         }
+
+        System.out.println("Redirecionandopara o menu...");
+        this.viewMainTitle();
         
         in.close();
     }

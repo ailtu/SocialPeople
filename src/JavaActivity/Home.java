@@ -8,15 +8,21 @@ public class Home {
     private String confirmPassCheck;
     private User[] userAccounts;
     public User currentUser;
+    private Layouts view;
 
     // simula id da posição do vetor, onde estão armazenados os dados
     private int idAccountInfo;
 
     public Home() {
-        
+
+        idAccountInfo = 0;
         int indexSize = 10;
         userAccounts = new User[indexSize];
-        idAccountInfo = 0;
+        view = new Layouts(this);
+    }
+
+    public void showLayoutsView() {
+        view.viewMainTitle();
     }
 
     /* :: Métodos de checagem e verificação :: */
@@ -71,11 +77,11 @@ public class Home {
         return false;
     }
 
-    	// altera a senha do usuário
-	public void changePassOfAccount(String login, String newPass) {
-		User userForChangePass = this.findUserById(login);
-		userForChangePass.setPassword(newPass);
-	}
+    // altera a senha do usuário
+    public void changePassOfAccount(String login, String newPass) {
+        User userForChangePass = this.findUserById(login);
+        userForChangePass.setPassword(newPass);
+    }
 
     /* :: Métodos de criação, login e gerenciamento de conta :: */
 
@@ -163,4 +169,48 @@ public class Home {
 
         in.close();
     }
+
+    public void editProfile() {
+        Scanner in = new Scanner(System.in);
+
+        String newLogin;
+        int optionChoosed = 0;
+
+        System.out.println("O que deseja alterar " + currentUser.getLogin() + "?");
+        System.out.println("|  1 - Seu Login  |  2 - Sua Senha  |  3 - Sair  | ");
+        optionChoosed = in.nextInt(); in.nextLine();
+
+        while(optionChoosed != 3) {
+
+            switch(optionChoosed) {
+                
+                case 1:
+                break;
+
+                case 2:
+                break;
+
+                default: System.out.println("Opção inválida, tente novamente: ");
+            }
+        }
+
+        in.close();
+    }
+
+    public void changeLogin() {
+
+    }
+
+    public void changePass() {
+
+    }
+
+    public void followAndShowFriends() {
+
+    }
+
+    public void sendMessages() {
+
+    }
+
 }

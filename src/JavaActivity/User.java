@@ -12,7 +12,7 @@ public class User implements Comparable<User> {
         this.login = login;
         this.password = password;
         friends = new Friends[10];
-        messages = new Message[10];
+        messages = new Messages[10];
     }
 
     public User() {
@@ -54,18 +54,19 @@ public class User implements Comparable<User> {
         return countFollowers;
     }
 
-    public Amigo[] getFriends() {
+    public Friends[] getFriends() {
 
         return this.friends;
     }
 
     public Friends[] getPendingFriends() {
 
-        Friends[] pendingFriendsRequests = new Friends[countFollowers];
-        Friends friend = friends[i]; int j = 0;
+        Friends[] pendingFriendsRequests = new Friends[countFollowers]; int j = 0;
 
         for (int i = 0; i < countFollowers; i++) {
 
+            Friends friend = friends[i];
+            
             if (friend.getPending()) {
                 pendingFriendsRequests[j] = friend;
                 j++;
@@ -86,6 +87,7 @@ public class User implements Comparable<User> {
     int countMessages = 0;
 
     public Messages[] getMessage() {
+       
         if (countMessages > 0) {
             return messages;
         }
@@ -93,6 +95,7 @@ public class User implements Comparable<User> {
     }
 
     public void sendMessage(Messages message) {
+      
         messages[countMessages] = message;
         countMessages++;
     }
