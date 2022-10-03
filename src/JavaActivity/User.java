@@ -1,6 +1,6 @@
 package JavaActivity;
 
-public class User implements Comparable<User> {
+public class User implements Comparable <User> {
 
     private String login;
     private String password;
@@ -13,10 +13,6 @@ public class User implements Comparable<User> {
         this.password = password;
         friends = new Friends[10];
         messages = new Messages[10];
-    }
-
-    public User() {
-
     }
 
     public String getLogin() {
@@ -40,9 +36,9 @@ public class User implements Comparable<User> {
     }
 
     @Override
-    public int compareTo(User userToComparate) {
+    public int compareTo(User U) {
 
-        return this.login.compareTo(userToComparate.login);
+        return this.login.compareTo(U.login);
     }
 
     /* :: Simulador de mensagens e seguidores:: */
@@ -62,11 +58,9 @@ public class User implements Comparable<User> {
     public Friends[] getPendingFriends() {
 
         Friends[] pendingFriendsRequests = new Friends[countFollowers]; int j = 0;
-
         for (int i = 0; i < countFollowers; i++) {
 
             Friends friend = friends[i];
-            
             if (friend.getPending()) {
                 pendingFriendsRequests[j] = friend;
                 j++;
@@ -99,4 +93,9 @@ public class User implements Comparable<User> {
         messages[countMessages] = message;
         countMessages++;
     }
+
+    public void addMessage(Messages message) {
+		messages[countMessages] = message;
+		countMessages++;
+	}
 }

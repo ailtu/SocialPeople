@@ -10,11 +10,7 @@ public class Layouts {
     private Home verHome;
 
     public Layouts(Home vH) {
-        verHome = vH;
-    }
-
-    public Layouts() {
-        
+        this.verHome = vH;
     }
 
     public void viewMainTitle() {

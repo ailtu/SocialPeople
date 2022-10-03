@@ -16,13 +16,14 @@ public class Home {
     public Home() {
 
         idAccountInfo = 0;
-        int indexSize = 10;
-        userAccounts = new User[indexSize];
+        userAccounts = new User[100];
         view = new Layouts(this);
     }
 
     public void showLayoutsView() {
-        view.viewMainTitle();
+       showView = new Layouts(this);
+       showView.viewMainTitle();
+        
     }
 
     /* :: Métodos de checagem e verificação :: */
@@ -174,35 +175,45 @@ public class Home {
         Scanner in = new Scanner(System.in);
 
         String newLogin;
+        String newPass;
         int optionChoosed = 0;
 
         System.out.println("O que deseja alterar " + currentUser.getLogin() + "?");
         System.out.println("|  1 - Seu Login  |  2 - Sua Senha  |  3 - Sair  | ");
         optionChoosed = in.nextInt(); in.nextLine();
 
-        while(optionChoosed != 3) {
+        while (optionChoosed != 3) {
+            switch (optionChoosed) {
 
-            switch(optionChoosed) {
-                
                 case 1:
-                break;
+                    System.out.println("Digite o novo Login: ");
+                    newLogin = in.nextLine();
+                    this.changeLogin(currentUser.getLogin, newLogin);
+                    System.out.println("Login alterado com sucesso!");
 
                 case 2:
-                break;
+                    System.out.println("Digite a nova Senha: ");
+                    newPass = in.nextLine();
+                    this.changePass(currentUser.getLogin, newPass);
+                    System.out.println("Senha alterada com sucesso!");
 
-                default: System.out.println("Opção inválida, tente novamente: ");
+                default:
+                    System.out.println("Opção inválida, tente novamente: ");
             }
+            this.editProfile();
         }
-
+        this.menuWhenUserLogged();
         in.close();
     }
 
-    public void changeLogin() {
-
+    public void changeLogin(String login, String storageNewLogin ) {
+        User user = this.findUserById(login);
+        user.setLogin(storageNewLogin);
     }
 
-    public void changePass() {
-
+    public void changePass(String login, String storageNewPass) {
+        User user = this.findUserById(login);
+        user.setPassword(storageNewPass);
     }
 
     public void followAndShowFriends() {
