@@ -1,80 +1,106 @@
 package JavaLayouts;
 
- import java.util.Scanner;
+import java.util.Scanner;
 
-import JavaActivity.*;
+import JavaActivity.Home;
 
 // classe para gráficos
 public class Layouts {
+    private Home controller;
 
-    private Home verHome;
-
-    public Layouts(Home vH) {
-        this.verHome = vH;
+    public Layouts(Home viewController) {
+        controller = viewController;
     }
 
-    public void viewMainTitle() {
+    // ver o menu principal
+    public void mainTitle() {
         Scanner in = new Scanner(System.in);
 
-        int optionChoosed = 0;
+        int optionChoosed;
 
-        System.out.println("|               > SOCIAL PEOPLE <              | ");   
+        System.out.println("|               > SOCIAL PEOPLE <              | ");
         System.out.println("|  1 - Cadastre-se  |  2 - Login  |  3 - Sair  | ");
-        optionChoosed = in.nextInt(); in.nextLine();
+        optionChoosed = in.nextInt();
+        in.nextLine();
 
-        while(optionChoosed != 3) {
+        while (optionChoosed != 3) {
 
-            switch(optionChoosed) {
+            switch (optionChoosed) {
 
-                case 1: verHome.createNewAccount();
-                        this.viewMenuWhenUserLogged();
-                break;
-
-                case 2: verHome.login();
-                        this.viewMenuWhenUserLogged();
-                break;
-
-                default: System.out.println("Opção inválida, tente novamente: ");
+                case 1 -> {
+                    controller.createNewAccount();
+                    this.menuWhenUserLogged();
+                }
+                case 2 -> {
+                    controller.login();
+                    this.menuWhenUserLogged();
+                }
+                default -> System.out.println("Opção inválida, tente novamente: ");
             }
         }
-
         in.close();
         System.out.println("Saindo...");
         Runtime.getRuntime().exit(0);
     }
 
-    public void viewMenuWhenUserLogged() {
+    // segundo menu após a tela de login
+    public void menuWhenUserLogged() {
         Scanner in = new Scanner(System.in);
-       
-        int optionChoosed = 0;
+
+        int optionChoosed;
 
         System.out.println("|  1 - Editar Login/Senha  |  2 - Add/Seguir Amigos  |  3 - Enviar Mensagem  |  4 - Sair  |");
-        optionChoosed = in.nextInt(); in.nextLine();
-        while(optionChoosed != 4) {
+        optionChoosed = in.nextInt();
+        in.nextLine();
+        while (optionChoosed != 4) {
 
-            Home showHomeMenus = new Home();
-
-            switch(optionChoosed) {
-
-                case 1: showHomeMenus.editProfile();
-                break;
-
-                case 2: showHomeMenus.followAndShowFriends();
-                break;
-
-                case 3: showHomeMenus.sendMessages();
-                break;
-
-                default: System.out.println("Opção inválida, tente novamente: ");
+            switch (optionChoosed) {
+                case 1 -> {
+                }
+                case 2 -> {
+                }
+                case 3 -> {
+                    followAndShowFriends();
+                }
+                case 4 -> {
+                }
+                default -> System.out.println("Opção inválida, tente novamente: ");
             }
-            this.viewMenuWhenUserLogged();
-            optionChoosed = in.nextInt(); in.nextLine();
+            this.menuWhenUserLogged();
+            optionChoosed = in.nextInt();
+            in.nextLine();
         }
-
         System.out.println("Redirecionandopara o menu...");
-        this.viewMainTitle();
-        
+        this.mainTitle();
         in.close();
     }
 
+    public void followAndShowFriends() {
+        Scanner in = new Scanner(System.in);
+
+        int optionChoosed;
+        String loginFriend;
+
+        System.out.println("|  1 - Seguir amigo  |  2 - Voltar   |");
+        optionChoosed = in.nextInt();
+
+        while (optionChoosed != 2) {
+            switch (optionChoosed) {
+
+                case 1 -> {
+                    System.out.println("");
+                    loginFriend = in.nextLine();
+                    while (!controller.checkLoginAlreadyExist(loginFriend)) {
+                        System.out.println("Login não encontrado ou não existente! Tente novamente: ");
+                        loginFriend = in.nextLine();
+                    }
+                    controller.currentUser.inviteFriend(loginFriend);
+                    System.out.println("Solicitação de amizade enviada, aguarde ser aceita!");
+                }
+                default -> System.out.println("Opção inválida, tente novamente: ");
+            }
+            this.followAndShowFriends();
+        }
+        this.menuWhenUserLogged();
+    }
 }

@@ -14,16 +14,14 @@ public class Home {
     private int idAccountInfo;
 
     public Home() {
-
         idAccountInfo = 0;
         userAccounts = new User[100];
         view = new Layouts(this);
     }
 
-    public void showLayoutsView() {
-       showView = new Layouts(this);
-       showView.viewMainTitle();
-        
+    public void startView() {
+        view = new Layouts(this);
+        view.mainTitle();
     }
 
     /* :: Métodos de checagem e verificação :: */
@@ -86,6 +84,37 @@ public class Home {
 
     /* :: Métodos de criação, login e gerenciamento de conta :: */
 
+    public void mainTitle() {
+        Scanner in = new Scanner(System.in);
+
+        int optionChoosed;
+
+        System.out.println("|               > SOCIAL PEOPLE <              | ");
+        System.out.println("|  1 - Cadastre-se  |  2 - Login  |  3 - Sair  | ");
+        optionChoosed = in.nextInt(); in.nextLine();
+
+        while(optionChoosed != 3) {
+
+            switch(optionChoosed) {
+
+                case 1 -> {
+                    this.createNewAccount();
+                    this.menuWhenUserLogged();
+                }
+                case 2 -> {
+                    this.login();
+                    this.menuWhenUserLogged();
+                }
+                default -> {
+                    System.out.println("Opção inválida, tente novamente: ");
+                }
+            }
+        }
+        in.close();
+        System.out.println("Saindo...");
+        Runtime.getRuntime().exit(0);
+    }
+
     // cria conta para um novo usuário
     public void createNewAccount() {
         Scanner in = new Scanner(System.in);
@@ -97,12 +126,12 @@ public class Home {
         System.out.println("Crie um Login: ");
         login = in.nextLine();
 
-        while (this.checkLoginAlreadyExist(login) == false || this.checkLoginIsSuitable(login)) {
+        while(this.checkLoginAlreadyExist(login) == false || this.checkLoginIsSuitable(login)) {
             System.out.println("Erro: A conta já existe! Tente outro: ");
             login = in.nextLine();
         }
 
-        while (this.checkLoginIsSuitable(login)) {
+        while(this.checkLoginIsSuitable(login)) {
             System.out.println("Campos vazios não são permitidos! Tente novamente: ");
             login = in.nextLine();
         }
@@ -124,8 +153,17 @@ public class Home {
             System.out.println("A senha está diferente! Tente novamente: ");
             confirmPassCheck = in.nextLine();
         }
-
+        currentUser = this.registerNewAccount(login, password);
         in.close();
+    }
+
+    // registra na array o novo usuário
+    public User registerNewAccount(String login, String password) {
+        User accountForRegister = new User(login, password);
+        userAccounts[idAccountInfo] = accountForRegister;
+        idAccountInfo++;
+
+        return accountForRegister;
     }
 
     // login para usuários já cadastrados
@@ -155,7 +193,6 @@ public class Home {
             System.out.println("Senha incorreta! Tente novamente: ");
             password = in.nextLine();
         }
-
         currentUser = this.findUserById(login);
         in.close();
     }
@@ -163,11 +200,30 @@ public class Home {
     // menu de quando usuário já estiver logado
     public void menuWhenUserLogged() {
         Scanner in = new Scanner(System.in);
-        Layouts viewLayouts = new Layouts();
 
-        System.out.println(" Olá" + currentUser.getLogin() + "! ");
-        viewLayouts.viewMenuWhenUserLogged();
+        int optionChoosed = 0;
 
+        System.out.println("|  1 - Editar Login/Senha  |  2 - Add/Seguir Amigos  |  3 - Enviar Mensagem  |  4 - Sair  |");
+        optionChoosed = in.nextInt(); in.nextLine();
+        while(optionChoosed != 4) {
+
+            switch(optionChoosed) {
+                case 1 -> {
+                    editProfile();
+                }
+                case 2 -> {
+                    followAndShowFriends();
+                }
+                case 3 -> {
+                    sendMessages();
+                }
+                default -> System.out.println("Opção inválida, tente novamente: ");
+            }
+            this.menuWhenUserLogged();
+            optionChoosed = in.nextInt(); in.nextLine();
+        }
+        System.out.println("Redirecionandopara o menu...");
+        this.mainTitle();
         in.close();
     }
 
@@ -176,7 +232,7 @@ public class Home {
 
         String newLogin;
         String newPass;
-        int optionChoosed = 0;
+        int optionChoosed;
 
         System.out.println("O que deseja alterar " + currentUser.getLogin() + "?");
         System.out.println("|  1 - Seu Login  |  2 - Sua Senha  |  3 - Sair  | ");
@@ -185,20 +241,19 @@ public class Home {
         while (optionChoosed != 3) {
             switch (optionChoosed) {
 
-                case 1:
+                case 1 -> {
                     System.out.println("Digite o novo Login: ");
                     newLogin = in.nextLine();
-                    this.changeLogin(currentUser.getLogin, newLogin);
+                    this.changeLogin(currentUser.getLogin(), newLogin);
                     System.out.println("Login alterado com sucesso!");
-
-                case 2:
+                }
+                case 2 -> {
                     System.out.println("Digite a nova Senha: ");
                     newPass = in.nextLine();
-                    this.changePass(currentUser.getLogin, newPass);
+                    this.changePass(currentUser.getLogin(), newPass);
                     System.out.println("Senha alterada com sucesso!");
-
-                default:
-                    System.out.println("Opção inválida, tente novamente: ");
+                }
+                default -> System.out.println("Opção inválida, tente novamente: ");
             }
             this.editProfile();
         }
@@ -217,11 +272,34 @@ public class Home {
     }
 
     public void followAndShowFriends() {
+        Scanner in = new Scanner(System.in);
 
+        int optionChoosed;
+        String loginFriend;
+
+        System.out.println("|  1 - Seguir amigo  |  2 - Voltar   |");
+        optionChoosed = in.nextInt();
+
+        while (optionChoosed != 2) {
+            switch (optionChoosed) {
+
+                case 1 -> {
+                    System.out.println("");
+                    loginFriend = in.nextLine();
+                    while(!this.checkLoginAlreadyExist(loginFriend)) {
+                        System.out.println("Login não encontrado ou não existente! Tente novamente: ");
+                        loginFriend = in.nextLine();
+                    }
+                    currentUser.inviteFriend(loginFriend);
+                    System.out.println("Solicitação de amizade enviada, aguarde ser aceita!");
+                }
+                default -> System.out.println("Opção inválida, tente novamente: ");
+            }
+            this.followAndShowFriends();
+        }
+        this.menuWhenUserLogged();
     }
 
     public void sendMessages() {
-
     }
-
 }

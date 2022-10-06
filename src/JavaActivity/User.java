@@ -8,7 +8,6 @@ public class User implements Comparable <User> {
     private Messages[] messages;
 
     public User(String login, String password) {
-
         this.login = login;
         this.password = password;
         friends = new Friends[10];
@@ -37,7 +36,6 @@ public class User implements Comparable <User> {
 
     @Override
     public int compareTo(User U) {
-
         return this.login.compareTo(U.login);
     }
 

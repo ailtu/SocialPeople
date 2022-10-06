@@ -7,10 +7,12 @@ public class Messages {
     private String currentMessage;
     
     public Messages(String forAnyone, String fromCurrentUser, String currentMessage) {
-  
         this.forAnyone = forAnyone;
         this.fromCurrentUser = fromCurrentUser;
         this.currentMessage = currentMessage;
+    }
+
+    public Messages() {
     }
 
     public void setCurrentMessage(String currentMessage) {
@@ -19,10 +21,6 @@ public class Messages {
 
     public String getCurrentMessage() {
         return currentMessage;
-    }
-
-    public Messages(){
-
     }
 
     public String getForAnyone() {
