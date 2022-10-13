@@ -40,16 +40,13 @@ public class User implements Comparable <User> {
     }
 
     /* :: Simulador de mensagens e seguidores:: */
-
     int countFollowers = 0;
 
     public int getAmountFriends() {
-
         return countFollowers;
     }
 
     public Friends[] getFriends() {
-
         return this.friends;
     }
 
@@ -87,7 +84,6 @@ public class User implements Comparable <User> {
     }
 
     public void sendMessage(Messages message) {
-      
         messages[countMessages] = message;
         countMessages++;
     }

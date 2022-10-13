@@ -12,9 +12,6 @@ public class Messages {
         this.currentMessage = currentMessage;
     }
 
-    public Messages() {
-    }
-
     public void setCurrentMessage(String currentMessage) {
         this.currentMessage = currentMessage;
     }
