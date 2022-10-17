@@ -1,5 +1,6 @@
 package JavaActivity;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import JavaLayouts.Layouts;
@@ -69,27 +70,65 @@ public class Home {
         user.setPassword(storageNewPass);
     }
 
+    public Friends[] getFollowers() {
+
+        int requestsAmount = 0;
+        Friends[] followRequests = new Friends[1000];
+
+        for(int i = 0; i < idAccountInfo; i++) {
+            User user = userAccounts[i];
+
+            if(!(currentUser == user)) {
+                Friends[] searchedFriends = user.getFriends();
+
+                for(int j = 0; j < user.getAmountFriends(); j++) {
+                    Friends friendsReached = searchedFriends[j];
+
+                    if(friendsReached.getForAnyone().equals(currentUser.getLogin()) && friendsReached.getPending()) {
+                        followRequests[requestsAmount] = friendsReached;
+                        requestsAmount++;
+                    }
+                }
+            }
+        }
+        if (requestsAmount > 0) {
+            return followRequests;
+        }
+        return null;
+    }
+
     /* :: Métodos de criação, login e gerenciamento de conta :: */
-
     public void mainTitle() {
+        Scanner in = new Scanner(System.in);
 
-        System.out.println("|               > SOCIAL PEOPLE <              | ");
-        System.out.println("|  1 - Cadastre-se  |  2 - Login  |  3 - Sair  | ");
-        System.out.print("| ");
-        int optionChoosed = in.nextInt(); in.nextLine();
+        int optionChoosed = 0;
+
+        try {
+            System.out.println("|               > SOCIAL PEOPLE <              | ");
+            System.out.println("|  1 - Cadastre-se  |  2 - Login  |  3 - Sair  | ");
+            System.out.print("| ");
+            optionChoosed = in.nextInt();
+            in.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Erro: Você só pode escolher os valores abaixo! |");
+            System.out.println("|  1 - Cadastre-se  |  2 - Login  |  3 - Sair  | ");
+
+        }
 
         while (optionChoosed != 3) {
             switch (optionChoosed) {
 
-                case 1 -> {
+                case 1:
                     this.createNewAccount();
                     this.menuWhenUserLogged();
-                }
-                case 2 -> {
+                    break;
+
+                case 2:
                     this.login();
                     this.menuWhenUserLogged();
-                }
-                default -> System.out.println("Opção inválida, tente novamente: ");
+                break;
+
+                // default -> System.out.println("| Opção inválida, tente novamente: ");
             }
         }
         System.out.println("Saindo...");
@@ -188,16 +227,19 @@ public class Home {
         while (optionChoosed != 4) {
 
             switch (optionChoosed) {
-                case 1 -> {
+                case 1:
                     editProfile();
-                }
-                case 2 -> {
+                    break;
+
+                case 2:
                     followFriends();
-                }
-                case 3 -> {
+                break;
+
+                case 3:
                     messageSystem();
-                }
-                default -> System.out.println("Opção inválida, tente novamente: ");
+                break;
+
+                default: System.out.println("Opção inválida, tente novamente: ");
             }
             this.menuWhenUserLogged();
             optionChoosed = in.nextInt(); in.nextLine();
@@ -216,19 +258,21 @@ public class Home {
         while (optionChoosed != 3) {
             switch (optionChoosed) {
 
-                case 1 -> {
+                case 1:
                     System.out.println("Digite o novo Login: ");
                     String storageNewLogin = in.nextLine();
                     this.changeLogin(currentUser.getLogin(), storageNewLogin);
                     System.out.println("Login alterado com sucesso!");
-                }
-                case 2 -> {
+                    break;
+
+                case 2:
                     System.out.println("Digite a nova Senha: ");
                     String storageNewPass = in.nextLine();
                     this.changePass(currentUser.getLogin(), storageNewPass);
                     System.out.println("Senha alterada com sucesso!");
-                }
-                default -> System.out.println("Opção inválida, tente novamente: ");
+                break;
+
+                default: System.out.println("Opção inválida, tente novamente: ");
             }
             this.editProfile();
         }
