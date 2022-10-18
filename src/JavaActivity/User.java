@@ -1,6 +1,6 @@
 package JavaActivity;
 
-public class User implements Comparable <User> {
+public class User implements Comparable<User> {
 
     private String login;
     private String password;
@@ -52,7 +52,8 @@ public class User implements Comparable <User> {
 
     public Friends[] getPendingFriends() {
 
-        Friends[] pendingFriendsRequests = new Friends[countFollowers]; int j = 0;
+        Friends[] pendingFriendsRequests = new Friends[countFollowers];
+        int j = 0;
         for (int i = 0; i < countFollowers; i++) {
 
             Friends friend = friends[i];
@@ -76,7 +77,7 @@ public class User implements Comparable <User> {
     int countMessages = 0;
 
     public Messages[] getMessage() {
-       
+
         if (countMessages > 0) {
             return messages;
         }
@@ -89,7 +90,7 @@ public class User implements Comparable <User> {
     }
 
     public void addMessage(Messages message) {
-		messages[countMessages] = message;
-		countMessages++;
-	}
+        messages[countMessages] = message;
+        countMessages++;
+    }
 }
