@@ -14,6 +14,10 @@ O código fonte se encontra no endereço:
 
 - SocialPeople/src/JavaLayouts/ Para códigos "gáficos"
 
+- SocialPeople/src/MainActivity/ Para execução geral do projeto
+
+# Documentation
+
 # Ferramentas utilizadas:
 
 <div align="left">
