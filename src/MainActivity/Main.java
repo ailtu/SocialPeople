@@ -7,11 +7,10 @@ public class Main {
     public static void main(String[] args) {
 
         /* EXECUTE AQUI! */
+        Layouts triggerLayouts = new Layouts();
+        triggerLayouts.desingLayout();
 
-      /*  Layouts triggerLayouts = new Layouts();
-        triggerLayouts.desingLayout(); */
-
-        Home trigger = new Home();
-        trigger.mainTitle();
+        Home triggerHome = new Home();
+        triggerHome.mainTitle();
     }
 }

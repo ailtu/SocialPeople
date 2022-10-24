@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SocialPeople:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SocialPeople_jar</output-path>
+    <root id="archive" name="SocialPeople.jar">
+      <element id="module-output" name="SocialPeople" />
+    </root>
+  </artifact>
+</component>

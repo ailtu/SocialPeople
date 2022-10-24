@@ -1,5 +1,7 @@
 package JavaActivity;
 
+import JavaLayouts.Layouts;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -73,7 +75,6 @@ public class Home {
         while (!executionSwitch) {
             Scanner in = new Scanner(System.in);
 
-            System.out.println("|                   > SOCIAL PEOPLE <                   | ");
             System.out.println("|  1 - Cadastre-se  |  2 - Login  |  3 - Finalizar App  | ");
 
             try {
