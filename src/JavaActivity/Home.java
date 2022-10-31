@@ -1,7 +1,5 @@
 package JavaActivity;
 
-import JavaLayouts.Layouts;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
