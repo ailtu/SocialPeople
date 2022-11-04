@@ -16,16 +16,8 @@ public class Friends {
         return forAnyone;
     }
 
-    public void setForAnyone(String forAnyone) {
-        this.forAnyone = forAnyone;
-    }
-
     public String getFromCurrentUser() {
         return fromCurrentUser;
-    }
-
-    public void setFromCurrentUser(String fromCurrentUser) {
-        this.fromCurrentUser = fromCurrentUser;
     }
 
     public void setPending(boolean friendshipSolicitation) {

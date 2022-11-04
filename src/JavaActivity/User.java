@@ -50,24 +50,6 @@ public class User implements Comparable<User> {
         return this.friends;
     }
 
-    public Friends[] getPendingFriends() {
-
-        Friends[] pendingFriendsRequests = new Friends[countFollowers];
-        int j = 0;
-        for (int i = 0; i < countFollowers; i++) {
-
-            Friends friend = friends[i];
-            if (friend.getPending()) {
-                pendingFriendsRequests[j] = friend;
-                j++;
-            }
-        }
-        if (j > 0) {
-            return pendingFriendsRequests;
-        }
-        return null;
-    }
-
     public void inviteFriend(String forAnyone) {
         Friends friend = new Friends(login, forAnyone);
         friends[countFollowers] = friend;
@@ -82,11 +64,6 @@ public class User implements Comparable<User> {
             return messages;
         }
         return null;
-    }
-
-    public void sendMessage(Messages message) {
-        messages[countMessages] = message;
-        countMessages++;
     }
 
     public void addMessage(Messages message) {

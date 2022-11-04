@@ -96,7 +96,7 @@ public class Home {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erro: " + e);
+                System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
             }
         }
     }
@@ -140,7 +140,6 @@ public class Home {
             System.out.println("A senha está diferente! Tente novamente: ");
             confirmPassCheck = in.nextLine();
         }
-
         System.out.println("Registrando e redirecionando... ");
         currentUser = this.registerNewAccount(login, password);
     }
@@ -152,6 +151,93 @@ public class Home {
         idAccountInfo++;
 
         return accountForRegister;
+    }
+
+    public Friends[] getFollowers() {
+
+        int requestsAmount = 0;
+        Friends[] followRequests = new Friends[1000];
+
+        for (int i = 0; i < idAccountInfo; i++) {
+            User user = userAccounts[i];
+            if (!(currentUser == user)) {
+                Friends[] searchedFriends = user.getFriends();
+                for (int j = 0; j < user.getAmountFriends(); j++) {
+                    Friends friendsReached = searchedFriends[j];
+                    if (friendsReached.getForAnyone().equals(currentUser.getLogin()) && friendsReached.getPending()) {
+                        followRequests[requestsAmount] = friendsReached;
+                        requestsAmount++;
+                    }
+                }
+            }
+        }
+        if (requestsAmount > 0) {
+            return followRequests;
+        }
+        return null;
+    }
+
+    public void sendFriendshipRequest() {
+
+        int optionsChoosed = in.nextInt();
+        while (optionsChoosed != 2) {
+            switch (optionsChoosed) {
+                case 1:
+                    System.out.println("Login de quem você quer seguir: ");
+                    String friendReceiverLogin = in.nextLine();
+
+                    while (!this.checkLoginAlreadyExist(friendReceiverLogin)) {
+                        System.out.print("Não encontramos esse usuário! Digite novamente: ");
+                        friendReceiverLogin = in.nextLine();
+                    }
+                    currentUser.inviteFriend(friendReceiverLogin);
+                    System.out.println("Solicitação enviada com sucesso!");
+                    break;
+            }
+            this.menuNetworkSystem();
+        }
+    }
+
+    public void viewPendingRequests() {
+
+        Friends[] friends = currentUser.getFriends();
+        int optionChoosed = 0;
+
+        if (friends != null) {
+            System.out.println("Solicitações enviadas: ");
+            for (int i = 0; i < friends.length; i++) {
+                if (friends[i] != null) {
+                    Friends friend = friends[i];
+
+                    User friendAccount = this.findUserById(friend.getForAnyone());
+                    String statusRequest = friend.getPending() ? "Ainda pendente..." : "Foi aceita!";
+                    System.out.println(friendAccount.getLogin() + statusRequest);
+                }
+            }
+        } else {
+            System.out.println("0 - Solicitações enviadas.");
+        }
+
+        Friends[] pendingRequests = getFollowers();
+        if (pendingRequests != null) {
+            System.out.println("Solicitações de amizade para você!");
+            for (int i = 0; i < pendingRequests.length; i++) {
+                if (pendingRequests[i] != null) {
+                    Friends friend = pendingRequests[i];
+                    User friendAccount = this.findUserById(friend.getFromCurrentUser());
+                    System.out.println(friendAccount.getLogin() + " N° " + (i + 1));
+                }
+            }
+            System.out.println("Digite o N° da solicitação para ACEITAR ou 0 para NEGAR e VOLTAR.");
+            optionChoosed = in.nextInt();
+            while (optionChoosed != 0) {
+                pendingRequests[optionChoosed - 1].setPending(false);
+                optionChoosed = in.nextInt();
+            }
+        } else {
+            System.out.println("Vá procurar amigos! a caixa está vazia de solicitações ;-; ");
+            this.menuNetworkSystem();
+        }
     }
 
     // login para usuários já cadastrados
@@ -192,7 +278,7 @@ public class Home {
             Scanner in = new Scanner(System.in);
 
             System.out.println("| O que deseja fazer " + currentUser.getLogin() + "? ");
-            System.out.println("|  1 - Editar Perfil  |  2 - Conversas  |  3 - Deslogar  |");
+            System.out.println("|  1 - Editar Perfil  |  2 - Conversas  |  3 - Amizades  |  4 - Deslogar  |");
 
             try {
                 switch (in.nextInt()) {
@@ -201,11 +287,15 @@ public class Home {
                         editProfile();
                         break;
 
-                    case 2: // sistema de mesnagem
+                    case 2: // sistema de mensagem
                         messageSystem();
                         break;
 
-                    case 3: // volta ao menu
+                    case 3: // sistema de seguidores
+                        menuNetworkSystem();
+                        break;
+
+                    case 4: // volta ao menu
                         mainTitle();
                         break;
 
@@ -214,7 +304,7 @@ public class Home {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erro: " + e);
+                System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
             }
         }
     }
@@ -252,7 +342,7 @@ public class Home {
         this.menuWhenUserLogged();
     }
 
-    // sistema de mensagens
+    // sistema de mensagens (preciso modificar para o S do SOLID
     public void messageSystem() {
 
         String login;
@@ -306,5 +396,40 @@ public class Home {
             messageSystem();
         }
         menuWhenUserLogged();
+    }
+
+    // menu do sistem de solicitações de amizade
+    public void menuNetworkSystem() {
+
+        boolean executionSwitch = false;
+        while (!executionSwitch) {
+            Scanner in = new Scanner(System.in);
+
+            System.out.println("| O que deseja fazer " + currentUser.getLogin() + "?");
+            System.out.println("|  1 - Adicionar Amigos  |  2 - Solicitações de Amizade  |  3 - Voltar   |");
+
+            try {
+                switch (in.nextInt()) {
+                    case 1:
+                        sendFriendshipRequest();
+                        break;
+
+                    case 2:
+                        viewPendingRequests();
+                        break;
+
+                    case 3:
+                        menuWhenUserLogged();
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida, tente novamente: ");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
+            }
+            menuNetworkSystem();
+        }
     }
 }
