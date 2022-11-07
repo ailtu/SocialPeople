@@ -16,7 +16,12 @@ O código fonte se encontra no endereço:
 
 - SocialPeople/src/MainActivity/ Para execução geral do projeto
 
-# Documentation
+# Requisitos de cada etapa:
+Encapsulamento: ✔️ 
+Herança/Classe Abstrata: ✔️ 
+Exceptions: ✔️ 
+SOLID: ✔️ 
+Padrão de projeto: ⌛
 
 # Ferramentas utilizadas:
 
