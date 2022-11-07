@@ -32,7 +32,6 @@ public class Home {
     // checa se o login já existe
     public boolean checkLoginAlreadyExist(String login) {
 
-        // predefinido como não existente
         boolean loginExist = false;
 
         for (int i = 0; i < idAccountInfo; i++) {
@@ -54,19 +53,18 @@ public class Home {
         return false;
     }
 
-    // edita a senha
+    // armazena o login
     public void changeLogin(String login, String storageNewLogin) {
         User user = this.findUserById(login);
         user.setLogin(storageNewLogin);
     }
 
-    // edita a senha
+    // armazena a senha
     public void changePass(String login, String storageNewPass) {
         User user = this.findUserById(login);
         user.setPassword(storageNewPass);
     }
 
-    // tela principal
     public void mainTitle() {
 
         boolean executionSwitch = false;
@@ -101,29 +99,24 @@ public class Home {
         }
     }
 
-    // cria conta para um novo usuário
     public void createNewAccount() {
 
         String login;
         String password;
 
-        // criação de login
         System.out.println("Crie um Login: ");
         login = in.nextLine();
 
-        // verifica se está vazio
         while (login.length() == 0) {
             System.out.println("Erro: O campo login está vazio! Preencha-o novamente: ");
             login = in.nextLine();
         }
 
-        // verifica se login já existe
         while (this.checkLoginAlreadyExist(login)) {
             System.out.println("Erro: A conta já existe! Tente outro: ");
             login = in.nextLine();
         }
 
-        // criação de senha
         System.out.println("Crie uma senha: ");
         password = in.nextLine();
 
@@ -132,7 +125,6 @@ public class Home {
             password = in.nextLine();
         }
 
-        // pede confirmação de senha para checar se foi digitada corretamente
         System.out.println("Confirme sua senha: ");
         confirmPassCheck = in.nextLine();
 
@@ -177,6 +169,7 @@ public class Home {
         return null;
     }
 
+    // enviar solicitação de amizade
     public void sendFriendshipRequest() {
 
         int optionsChoosed = in.nextInt();
@@ -240,7 +233,6 @@ public class Home {
         }
     }
 
-    // login para usuários já cadastrados
     public void login() {
 
         String login;
@@ -269,7 +261,6 @@ public class Home {
         currentUser = this.findUserById(login);
     }
 
-    // menu de quando usuário já estiver logado
     public void menuWhenUserLogged() {
 
         boolean executionSwitch = false;
@@ -309,7 +300,6 @@ public class Home {
         }
     }
 
-    // poder editar login e senha do usuário
     public void editProfile() {
 
         System.out.println("| O que deseja alterar " + currentUser.getLogin() + "?");
@@ -321,17 +311,11 @@ public class Home {
             switch (optionChoosed) {
 
                 case 1:
-                    System.out.println("Digite o novo Login: ");
-                    String storageNewLogin = in.nextLine();
-                    this.changeLogin(currentUser.getLogin(), storageNewLogin);
-                    System.out.println("Login alterado com sucesso!");
+                    resetLogin();
                     break;
 
                 case 2:
-                    System.out.println("Digite a nova Senha: ");
-                    String storageNewPass = in.nextLine();
-                    this.changePass(currentUser.getLogin(), storageNewPass);
-                    System.out.println("Senha alterada com sucesso!");
+                    resetPassword();
                     break;
 
                 default:
@@ -342,7 +326,22 @@ public class Home {
         this.menuWhenUserLogged();
     }
 
-    // sistema de mensagens (preciso modificar para o S do SOLID
+    // entrada de dado resetar login
+    public void resetLogin() {
+        System.out.println("Digite o novo Login: ");
+        String storageNewLogin = in.nextLine();
+        this.changeLogin(currentUser.getLogin(), storageNewLogin);
+        System.out.println("Login alterado com sucesso!");
+    }
+
+    // entrada de dado resetar password
+    public void resetPassword() {
+        System.out.println("Digite a nova Senha: ");
+        String storageNewPass = in.nextLine();
+        this.changePass(currentUser.getLogin(), storageNewPass);
+        System.out.println("Senha alterada com sucesso!");
+    }
+
     public void messageSystem() {
 
         String login;
@@ -398,7 +397,6 @@ public class Home {
         menuWhenUserLogged();
     }
 
-    // menu do sistem de solicitações de amizade
     public void menuNetworkSystem() {
 
         boolean executionSwitch = false;
@@ -429,7 +427,6 @@ public class Home {
             } catch (InputMismatchException e) {
                 System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
             }
-            menuNetworkSystem();
         }
     }
 }
