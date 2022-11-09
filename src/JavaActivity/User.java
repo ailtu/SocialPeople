@@ -39,7 +39,6 @@ public class User implements Comparable<User> {
         return this.login.compareTo(U.login);
     }
 
-    /* :: Simulador de mensagens e seguidores:: */
     int countFollowers = 0;
 
     public int getAmountFriends() {
@@ -57,7 +56,6 @@ public class User implements Comparable<User> {
     }
 
     int countMessages = 0;
-
     public Messages[] getMessage() {
 
         if (countMessages > 0) {
