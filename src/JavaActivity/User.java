@@ -4,13 +4,11 @@ public class User implements Comparable<User> {
 
     private String login;
     private String password;
-    private Friends[] friends;
     private Messages[] messages;
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
-        friends = new Friends[10];
         messages = new Messages[10];
     }
 
@@ -37,22 +35,6 @@ public class User implements Comparable<User> {
     @Override
     public int compareTo(User U) {
         return this.login.compareTo(U.login);
-    }
-
-    int countFollowers = 0;
-
-    public int getAmountFriends() {
-        return countFollowers;
-    }
-
-    public Friends[] getFriends() {
-        return this.friends;
-    }
-
-    public void inviteFriend(String forAnyone) {
-        Friends friend = new Friends(login, forAnyone);
-        friends[countFollowers] = friend;
-        countFollowers++;
     }
 
     int countMessages = 0;

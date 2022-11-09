@@ -1,6 +1,5 @@
 package JavaLayouts;
 
-// classe para design gráfico
 public class Layouts {
 
     public Layouts() {

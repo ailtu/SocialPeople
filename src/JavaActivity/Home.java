@@ -53,16 +53,41 @@ public class Home {
         return false;
     }
 
+    // registra na array o usuário criado
+    public User registerNewAccount(String login, String password) {
+        User accountForRegister = new User(login, password);
+        userAccounts[idAccountInfo] = accountForRegister;
+        idAccountInfo++;
+
+        return accountForRegister;
+    }
+
     // armazena o login
-    public void changeLogin(String login, String storageNewLogin) {
+    public void storageLogin(String login, String storageNewLogin) {
         User user = this.findUserById(login);
         user.setLogin(storageNewLogin);
     }
 
+    // entrada de dado resetar login
+    public void resetLogin() {
+        System.out.println("Digite o novo Login: ");
+        String storageNewLogin = in.nextLine();
+        this.storageLogin(currentUser.getLogin(), storageNewLogin);
+        System.out.println("Login alterado com sucesso!");
+    }
+
     // armazena a senha
-    public void changePass(String login, String storageNewPass) {
+    public void storagePass(String login, String storageNewPass) {
         User user = this.findUserById(login);
         user.setPassword(storageNewPass);
+    }
+
+    // entrada de dado resetar password
+    public void resetPassword() {
+        System.out.println("Digite a nova Senha: ");
+        String storageNewPass = in.nextLine();
+        this.storagePass(currentUser.getLogin(), storageNewPass);
+        System.out.println("Senha alterada com sucesso!");
     }
 
     public void mainTitle() {
@@ -94,7 +119,7 @@ public class Home {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
+                System.out.println("Erro: Tipo de valor inválido, tente novamente: " + e);
             }
         }
     }
@@ -107,7 +132,7 @@ public class Home {
         System.out.println("Crie um Login: ");
         login = in.nextLine();
 
-        while (login.length() == 0) {
+        while (login.equals("")) {
             System.out.println("Erro: O campo login está vazio! Preencha-o novamente: ");
             login = in.nextLine();
         }
@@ -120,7 +145,7 @@ public class Home {
         System.out.println("Crie uma senha: ");
         password = in.nextLine();
 
-        while (password.length() == 0) {
+        while (password.equals("")) {
             System.out.println("Campos vazios não são permitidos! Tente novamente: ");
             password = in.nextLine();
         }
@@ -134,103 +159,6 @@ public class Home {
         }
         System.out.println("Registrando e redirecionando... ");
         currentUser = this.registerNewAccount(login, password);
-    }
-
-    // registra na array o usuário criado
-    public User registerNewAccount(String login, String password) {
-        User accountForRegister = new User(login, password);
-        userAccounts[idAccountInfo] = accountForRegister;
-        idAccountInfo++;
-
-        return accountForRegister;
-    }
-
-    public Friends[] getFollowers() {
-
-        int requestsAmount = 0;
-        Friends[] followRequests = new Friends[1000];
-
-        for (int i = 0; i < idAccountInfo; i++) {
-            User user = userAccounts[i];
-            if (!(currentUser == user)) {
-                Friends[] searchedFriends = user.getFriends();
-                for (int j = 0; j < user.getAmountFriends(); j++) {
-                    Friends friendsReached = searchedFriends[j];
-                    if (friendsReached.getForAnyone().equals(currentUser.getLogin()) && friendsReached.getPending()) {
-                        followRequests[requestsAmount] = friendsReached;
-                        requestsAmount++;
-                    }
-                }
-            }
-        }
-        if (requestsAmount > 0) {
-            return followRequests;
-        }
-        return null;
-    }
-
-    // enviar solicitação de amizade
-    public void sendFriendshipRequest() {
-
-        int optionsChoosed = in.nextInt();
-        while (optionsChoosed != 2) {
-            switch (optionsChoosed) {
-                case 1:
-                    System.out.println("Login de quem você quer seguir: ");
-                    String friendReceiverLogin = in.nextLine();
-
-                    while (!this.checkLoginAlreadyExist(friendReceiverLogin)) {
-                        System.out.print("Não encontramos esse usuário! Digite novamente: ");
-                        friendReceiverLogin = in.nextLine();
-                    }
-                    currentUser.inviteFriend(friendReceiverLogin);
-                    System.out.println("Solicitação enviada com sucesso!");
-                    break;
-            }
-            this.menuNetworkSystem();
-        }
-    }
-
-    public void viewPendingRequests() {
-
-        Friends[] friends = currentUser.getFriends();
-        int optionChoosed = 0;
-
-        if (friends != null) {
-            System.out.println("Solicitações enviadas: ");
-            for (int i = 0; i < friends.length; i++) {
-                if (friends[i] != null) {
-                    Friends friend = friends[i];
-
-                    User friendAccount = this.findUserById(friend.getForAnyone());
-                    String statusRequest = friend.getPending() ? "Ainda pendente..." : "Foi aceita!";
-                    System.out.println(friendAccount.getLogin() + statusRequest);
-                }
-            }
-        } else {
-            System.out.println("0 - Solicitações enviadas.");
-        }
-
-        Friends[] pendingRequests = getFollowers();
-        if (pendingRequests != null) {
-            System.out.println("Solicitações de amizade para você!");
-            for (int i = 0; i < pendingRequests.length; i++) {
-                if (pendingRequests[i] != null) {
-                    Friends friend = pendingRequests[i];
-                    User friendAccount = this.findUserById(friend.getFromCurrentUser());
-                    System.out.println(friendAccount.getLogin() + " N° " + (i + 1));
-                }
-            }
-            System.out.println("Digite o N° da solicitação para ACEITAR ou 0 para NEGAR e VOLTAR.");
-            optionChoosed = in.nextInt();
-            while (optionChoosed != 0) {
-                pendingRequests[optionChoosed - 1].setPending(false);
-                optionChoosed = in.nextInt();
-            }
-        } else {
-            System.out.println("Vá procurar amigos! a caixa está vazia de solicitações ;-; ");
-            this.menuNetworkSystem();
-        }
     }
 
     public void login() {
@@ -282,8 +210,8 @@ public class Home {
                         messageSystem();
                         break;
 
-                    case 3: // sistema de seguidores
-                        menuNetworkSystem();
+                    case 3:// sistema de seguidores
+                        System.out.println("{ Em construção... }");
                         break;
 
                     case 4: // volta ao menu
@@ -295,7 +223,7 @@ public class Home {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
+                System.out.println("Erro: Tipo de valor inválido, tente novamente: " + e);
             }
         }
     }
@@ -326,22 +254,6 @@ public class Home {
         this.menuWhenUserLogged();
     }
 
-    // entrada de dado resetar login
-    public void resetLogin() {
-        System.out.println("Digite o novo Login: ");
-        String storageNewLogin = in.nextLine();
-        this.changeLogin(currentUser.getLogin(), storageNewLogin);
-        System.out.println("Login alterado com sucesso!");
-    }
-
-    // entrada de dado resetar password
-    public void resetPassword() {
-        System.out.println("Digite a nova Senha: ");
-        String storageNewPass = in.nextLine();
-        this.changePass(currentUser.getLogin(), storageNewPass);
-        System.out.println("Senha alterada com sucesso!");
-    }
-
     public void messageSystem() {
 
         String login;
@@ -368,7 +280,7 @@ public class Home {
                     System.out.println("Digite o que deseja enviar: ");
                     message = in.nextLine();
 
-                    Messages messageSended = new Messages(login, currentUser.getLogin(), message);
+                    Messages messageSended = new Messages(currentUser.getLogin(), message);
                     currentUser.addMessage(messageSended);
                     User user = findUserById(login);
                     user.addMessage(messageSended);
@@ -395,38 +307,5 @@ public class Home {
             messageSystem();
         }
         menuWhenUserLogged();
-    }
-
-    public void menuNetworkSystem() {
-
-        boolean executionSwitch = false;
-        while (!executionSwitch) {
-            Scanner in = new Scanner(System.in);
-
-            System.out.println("| O que deseja fazer " + currentUser.getLogin() + "?");
-            System.out.println("|  1 - Adicionar Amigos  |  2 - Solicitações de Amizade  |  3 - Voltar   |");
-
-            try {
-                switch (in.nextInt()) {
-                    case 1:
-                        sendFriendshipRequest();
-                        break;
-
-                    case 2:
-                        viewPendingRequests();
-                        break;
-
-                    case 3:
-                        menuWhenUserLogged();
-                        break;
-
-                    default:
-                        System.out.println("Opção inválida, tente novamente: ");
-                        break;
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Erro: " + e + " Tipo de valor inválido, tente novamente: ");
-            }
-        }
     }
 }
