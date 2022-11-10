@@ -87,7 +87,46 @@ public class Home {
         System.out.println("Digite a nova Senha: ");
         String storageNewPass = in.nextLine();
         this.storagePass(currentUser.getLogin(), storageNewPass);
-        System.out.println("Senha alterada com sucesso!");
+        System.out.println("Senha alterada com sucesso! ");
+    }
+
+    public void sendMessage() {
+
+        String login;
+        String message;
+
+        System.out.println("Digite o Login do seu amigo: ");
+        login = in.nextLine();
+
+        while (!this.checkLoginAlreadyExist(login)) {
+            System.out.println("Amigo não encontrado! Tente outro: ");
+            login = in.nextLine();
+        }
+
+        System.out.println("Amigo encontrado!");
+        System.out.println("Digite o que deseja enviar: ");
+        message = in.nextLine();
+
+        Messages messageSended = new Messages(currentUser.getLogin(), message);
+        currentUser.addMessage(messageSended);
+        User user = findUserById(login);
+        user.addMessage(messageSended);
+        System.out.println("Mensagem enviada!");
+    }
+
+    public void viewMessages() {
+
+        Messages[] receivedMessage = currentUser.getMessage();
+
+        if (receivedMessage != null) {
+            for (int i = 0; i < currentUser.countMessages; i++) {
+                Messages messages = receivedMessage[i];
+                System.out.println("Mensagem de " + findUserById(messages.getFromCurrentUser()).getLogin() + " para você! ");
+                System.out.println("> " + messages.getCurrentMessage());
+            }
+        } else {
+            System.out.println("Vá procurar amigos! a caixa está vazia ;-; ");
+        }
     }
 
     public void mainTitle() {
@@ -116,7 +155,7 @@ public class Home {
 
                     default:
                         System.out.println("Opção inválida, tente novamente: ");
-                        break;
+
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erro: Tipo de valor inválido, tente novamente: " + e);
@@ -220,7 +259,6 @@ public class Home {
 
                     default:
                         System.out.println("Opção inválida, tente novamente: ");
-                        break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Erro: Tipo de valor inválido, tente novamente: " + e);
@@ -230,82 +268,68 @@ public class Home {
 
     public void editProfile() {
 
-        System.out.println("| O que deseja alterar " + currentUser.getLogin() + "?");
-        System.out.println("|  1 - Seu Login  |  2 - Sua Senha  |  3 - Sair  | ");
-        int optionChoosed = in.nextInt();
-        in.nextLine();
+        boolean executionSwitch = false;
 
-        while (optionChoosed != 3) {
-            switch (optionChoosed) {
+        while (!executionSwitch) {
+            Scanner in = new Scanner(System.in);
 
-                case 1:
-                    resetLogin();
-                    break;
+            System.out.println("| O que deseja alterar " + currentUser.getLogin() + "?");
+            System.out.println("|  1 - Seu Login  |  2 - Sua Senha  |  3 - Sair  | ");
 
-                case 2:
-                    resetPassword();
-                    break;
+            try {
+                switch (in.nextInt()) {
+                    case 1:
+                        resetLogin();
+                        break;
 
-                default:
-                    System.out.println("Opção inválida, tente novamente: ");
+                    case 2:
+                        resetPassword();
+                        break;
+
+                    case 3:
+                        menuWhenUserLogged();
+                        break;
+
+                    default:
+                        System.out.println("Opção inválida, tente novamente: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erro: Tipo de valor inválido, tente novamente: " + e);
             }
-            this.editProfile();
         }
-        this.menuWhenUserLogged();
     }
 
     public void messageSystem() {
 
-        String login;
-        String message;
+        boolean executionSwitch = false;
 
-        System.out.println("| Inbox de " + currentUser.getLogin());
-        System.out.println("|  1 - Enviar Mensagens  |  2 - Mensagens Recebidas  |  3 - Voltar   |");
-        int optionChoosed = in.nextInt();
-        in.nextLine();
+        while (!executionSwitch) {
+            Scanner in = new Scanner(System.in);
 
-        while (optionChoosed != 3) {
-            switch (optionChoosed) {
+            System.out.println("| Inbox de " + currentUser.getLogin());
+            System.out.println("|  1 - Enviar Mensagens  |  2 - Mensagens Recebidas  |  3 - Voltar   |");
 
-                case 1:
-                    System.out.println("Digite o Login do seu amigo: ");
-                    login = in.nextLine();
+            try {
+                switch (in.nextInt()) {
 
-                    while (!this.checkLoginAlreadyExist(login)) {
-                        System.out.println("Amigo não encontrado! Tente outro: ");
-                        login = in.nextLine();
-                    }
+                    case 1:
+                        sendMessage();
+                        break;
 
-                    System.out.println("Amigo encontrado!");
-                    System.out.println("Digite o que deseja enviar: ");
-                    message = in.nextLine();
+                    case 2:
+                        viewMessages();
+                        break;
 
-                    Messages messageSended = new Messages(currentUser.getLogin(), message);
-                    currentUser.addMessage(messageSended);
-                    User user = findUserById(login);
-                    user.addMessage(messageSended);
-                    System.out.println("Mensagem enviada!");
-                    break;
+                    case 3:
+                        menuWhenUserLogged();
+                        break;
 
-                case 2:
-                    Messages[] receivedMessage = currentUser.getMessage();
-                    if (receivedMessage != null) {
-                        for (int i = 0; i < currentUser.countMessages; i++) {
-                            Messages messages = receivedMessage[i];
-                            System.out.println("Mensagem de " + findUserById(messages.getFromCurrentUser()).getLogin() + " para você! ");
-                            System.out.println("> " + messages.getCurrentMessage());
-                        }
-                    } else {
-                        System.out.println("Vá procurar amigos! a caixa está vazia ;-; ");
-                    }
-                    break;
-
-                default:
-                    System.out.println("Opção inválida, tente novamente: ");
-                    break;
+                    default:
+                        System.out.println("Opção inválida, tente novamente: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Erro: Tipo de valor inválido, tente novamente: " + e);
             }
-            messageSystem();
         }
-        menuWhenUserLogged();
     }
 }
