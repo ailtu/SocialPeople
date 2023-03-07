@@ -18,7 +18,6 @@ public class Home {
         userAccounts = new User[1000];
     }
 
-    // método para auxiliar nas buscas de um usuário
     public User findUserById(String login) {
 
         for (int i = 0; i <= idAccountInfo; i++) {
